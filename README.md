@@ -3,8 +3,11 @@
 Updating the IonCube Loader for all Multi PHP Versions
 
 ## Install
+
+Login with `root`
+
 ```console
-git clone https://github.com/strausmann/runcloud-ioncube-updater.git
+git clone git@github.com:codetot/runcloud-ioncube-updater.git
 cd runcloud-ioncube-updater
 chmod +x update_ioncube.sh
 ```
