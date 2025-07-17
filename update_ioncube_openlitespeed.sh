@@ -127,8 +127,13 @@ log_message "Cleaning up temporary directory: $TMP_DIR"
 rm -rf "$TMP_DIR"
 
 # Restart OpenLiteSpeed service to apply the new PHP configurations.
-log_message "Restarting OpenLiteSpeed service (lsws)..."
-systemctl restart lsws || error_message "Failed to restart OpenLiteSpeed service. Please restart it manually using 'sudo systemctl restart lsws' if necessary."
+log_message "Restarting OpenLiteSpeed service (lsws-rc)..."
+# Use lsws-rc service name as per user's guideline.
+systemctl restart lsws-rc || error_message "Failed to restart OpenLiteSpeed service (lsws-rc). Please restart it manually using 'sudo systemctl restart lsws-rc' if necessary."
+
+# Kill all lsphp processes to ensure new configurations are loaded.
+log_message "Killing all lsphp processes to ensure new configurations are loaded..."
+killall lsphp 2>/dev/null || log_message "No lsphp processes found to kill, or failed to kill them. This might be normal if they already restarted."
 
 log_message "ionCube Loader installation process complete for all specified PHP versions."
 log_message "Please verify the installation by creating a phpinfo() file for each PHP version and checking for 'ionCube Loader' in the output."
